@@ -20,7 +20,7 @@ const QRScanner = () => {
     const streamRef = useRef(null);
     const scanIntervalRef = useRef(null);
 
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZ6cEK6JXqXGjVGFaWwSr4giCi0xdPF3Exrw-NqajvzA3_y0aMC0gp6HnqLlH4KAZB/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxb9sWGRv6C3hjZvNdbREMb-fwZI_cnLMtm3NdWqunToEIQ6BVwMEf02GM7CJ5FzHOy/exec";
 
     const startCamera = async () => {
         try {
