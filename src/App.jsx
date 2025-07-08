@@ -3,9 +3,7 @@ import QRScanner from './components/QRScanner';
 
 function App() {
   return (
-    <>
-      <QRScanner />
-    </>
+    <QRScanner />
   )
 }
 
