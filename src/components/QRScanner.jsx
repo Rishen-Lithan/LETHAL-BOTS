@@ -96,6 +96,7 @@ const QRScanner = () => {
             setIsSubmitting(true);
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -186,7 +187,7 @@ const QRScanner = () => {
 
     return (
         <div className="min-h-screen p-4 bg-white">
-            <h1>Test 1</h1>
+            <h1>Test</h1>
             <div className="max-w-xl mx-auto">
                 <h1 className="mb-4 text-2xl font-bold text-center">QR Scanner</h1>
                 {error && <div className="mb-2 text-red-600">{error}</div>}
