@@ -19,6 +19,7 @@ import {
     Play,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Logo from '../assets/logo.jpg'
 
 const QRScanner = () => {
     const [scannedTeams, setScannedTeams] = useState([]);
@@ -198,177 +199,159 @@ const QRScanner = () => {
     }, []);
 
     return (
-        <div className="relative h-screen min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 opacity-20">
-                <div className="absolute w-2 h-2 rounded-full top-10 left-10 bg-cyan-400 animate-pulse"></div>
-                <div className="absolute w-1 h-1 bg-blue-400 rounded-full top-32 right-16 animate-ping"></div>
-                <div className="absolute w-3 h-3 bg-indigo-400 rounded-full bottom-40 left-20 animate-pulse"></div>
-                <div className="absolute w-2 h-2 rounded-full bottom-20 right-10 bg-cyan-300 animate-ping"></div>
+        <div className="relative h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
+            {/* Floating Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute w-24 h-24 rounded-full bg-cyan-400/10 blur-xl top-16 left-8 animate-pulse"></div>
+                <div className="absolute w-20 h-20 delay-300 rounded-full bg-purple-400/10 blur-xl top-28 right-12 animate-pulse"></div>
+                <div className="absolute w-32 h-32 delay-700 rounded-full bg-blue-400/10 blur-xl bottom-16 left-16 animate-pulse"></div>
+                <div className="absolute w-16 h-16 delay-1000 rounded-full bg-pink-400/10 blur-xl bottom-32 right-8 animate-pulse"></div>
             </div>
 
-            {/* Grid Pattern Overlay */}
+            {/* Noise Texture Overlay */}
             <div 
-                className="absolute inset-0 opacity-10"
+                className="absolute inset-0 opacity-20 mix-blend-overlay"
                 style={{
-                    backgroundImage: `
-                        linear-gradient(90deg, #00bcd4 1px, transparent 1px),
-                        linear-gradient(180deg, #00bcd4 1px, transparent 1px)
-                    `,
-                    backgroundSize: '20px 20px'
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 }}
             ></div>
 
-            <div className="relative z-10 h-screen min-h-screen p-4 md:p-6">
-                <div className="max-w-lg mx-auto">
+            <div className="relative z-10 p-4 md:p-6 max-h-[90vh] overflow-y-auto">
+                <div className="max-w-lg mx-auto space-y-4">
                     {/* Header */}
-                    <div className="mb-8 text-center">
-                        <div className="flex items-center justify-center mb-4">
+                    <div className="mb-4 text-center">
+                        <div className="flex justify-center mb-4">
                             <div className="relative">
-                                <div className="flex items-center justify-center w-16 h-16 shadow-2xl bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl">
-                                    <Bot className="w-8 h-8 text-white" />
+                                <div className="flex items-center justify-center w-16 h-16 overflow-hidden bg-white shadow-2xl rounded-2xl">
+                                    <img src={Logo} alt="Lethal Bots Logo" className="object-contain w-full h-full" />
                                 </div>
-                                <div className="absolute w-4 h-4 bg-red-500 rounded-full -top-1 -right-1 animate-pulse"></div>
+                                <div className="absolute w-4 h-4 bg-red-500 rounded-full shadow-lg -top-1 -right-1 animate-pulse shadow-red-500/50"></div>
                             </div>
                         </div>
-                        <h1 className="mb-2 text-3xl font-black text-white md:text-4xl">
+                        <h1 className="mb-1 text-xl font-black text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text">
                             LETHAL BOTS
                         </h1>
-                        <div className="text-lg font-semibold tracking-wider text-cyan-300">
-                            2025 • QR SCANNER
+                        <div className="mb-1 text-base font-bold tracking-widest text-gray-300">
+                            2025
                         </div>
-                        <div className="w-24 h-1 mx-auto mt-3 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        <div className="inline-block px-4 py-1 text-xs font-semibold border rounded-full text-cyan-300 border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm">
+                            QR SCANNER
+                        </div>
                     </div>
 
-                    {/* Status Messages */}
+                    {/* Error */}
                     {error && (
-                        <div className="p-4 mb-6 border bg-red-900/50 border-red-500/50 rounded-xl backdrop-blur-sm">
-                            <div className="flex items-center space-x-3">
-                                <AlertCircle className="flex-shrink-0 w-5 h-5 text-red-400" />
-                                <span className="text-sm text-red-300">{error}</span>
-                            </div>
+                        <div className="flex items-center p-3 space-x-2 text-sm text-red-200 border bg-red-900/30 border-red-500/40 rounded-xl">
+                            <AlertCircle className="w-4 h-4 text-red-400" />
+                            <span>{error}</span>
                         </div>
                     )}
 
+                    {/* Success */}
                     {scanResult && (
-                        <div className="p-4 mb-6 border bg-green-900/50 border-green-500/50 rounded-xl backdrop-blur-sm">
-                            <div className="flex items-center space-x-3">
-                                <CheckCircle className="flex-shrink-0 w-5 h-5 text-green-400" />
-                                <div className="text-sm text-green-300">
-                                    <div className="font-semibold">Team Registered!</div>
-                                    <div className="mt-1 break-all opacity-75">{scanResult}</div>
+                        <div className="p-3 text-sm border bg-emerald-900/30 border-emerald-500/40 rounded-xl text-emerald-200">
+                            <div className="flex items-center space-x-2">
+                                <CheckCircle className="w-4 h-4 text-emerald-400" />
+                                <div>
+                                    <strong>Team Registered!</strong>
+                                    <div className="mt-1 text-xs break-words opacity-75">{scanResult}</div>
                                 </div>
                             </div>
                         </div>
                     )}
 
                     {/* Camera Feed */}
-                    <div className="relative mb-6">
-                        <div className="relative overflow-hidden bg-black border-2 border-gray-700 shadow-2xl rounded-2xl">
-                            {/* Scanner Frame Overlay */}
+                    <div className="relative">
+                        <div className="relative overflow-hidden border bg-black/50 border-gray-600/50 rounded-2xl backdrop-blur-sm">
                             {isScanning && (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-                                    <div className="relative w-64 h-64 border-2 border-cyan-400 rounded-2xl">
-                                        {/* Corner accents */}
-                                        <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 rounded-tl-lg border-cyan-400"></div>
-                                        <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 rounded-tr-lg border-cyan-400"></div>
-                                        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 rounded-bl-lg border-cyan-400"></div>
-                                        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 rounded-br-lg border-cyan-400"></div>
-                                        
-                                        {/* Scanning line */}
+                                    <div className="relative w-48 h-48">
+                                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 p-0.5 animate-pulse">
+                                            <div className="w-full h-full bg-transparent rounded-xl"></div>
+                                        </div>
                                         {scanningActive && (
                                             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse"></div>
                                         )}
-                                        
-                                        {/* Center crosshair */}
-                                        <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <Target className="w-8 h-8 text-cyan-400 animate-pulse" />
+                                        <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                            <Target className="w-7 h-7 text-cyan-400 animate-pulse" />
                                         </div>
                                     </div>
                                 </div>
                             )}
-                            
                             <video 
                                 ref={videoRef} 
                                 autoPlay 
                                 playsInline 
-                                className="object-cover w-full bg-gray-900 h-80"
+                                className="object-cover w-full h-56 bg-gray-900 rounded-2xl"
                             />
                             <canvas ref={canvasRef} className="hidden" />
-                            
-                            {/* Camera overlay when not active */}
                             {!isScanning && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+                                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900/90 to-black/90 rounded-2xl backdrop-blur-sm">
                                     <div className="text-center">
-                                        <Camera className="w-16 h-16 mx-auto mb-4 text-gray-500" />
-                                        <p className="text-lg text-gray-400">Camera Off</p>
+                                        <Camera className="w-12 h-12 mx-auto text-gray-500" />
+                                        <p className="mt-1 text-sm font-semibold text-gray-300">Camera Standby</p>
+                                        <p className="text-xs text-gray-500">Tap to activate</p>
                                     </div>
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    {/* Control Buttons */}
-                    <div className="space-y-4">
+                    {/* Buttons */}
+                    <div className="space-y-2">
                         {!isScanning ? (
                             <button 
                                 onClick={startCamera}
-                                className="w-full px-6 py-4 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-xl hover:scale-105 active:scale-95"
+                                className="w-full px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 hover:from-cyan-600 hover:via-blue-600 hover:to-purple-600 rounded-xl"
                             >
-                                <div className="flex items-center justify-center space-x-3">
-                                    <Camera className="w-6 h-6" />
-                                    <span className="text-lg">ACTIVATE CAMERA</span>
+                                <div className="flex items-center justify-center space-x-2">
+                                    <Camera className="w-5 h-5" />
+                                    <span>ACTIVATE CAMERA</span>
                                 </div>
                             </button>
                         ) : (
-                            <div className="grid grid-cols-1 gap-4">
+                            <>
                                 <button 
                                     onClick={startQRScanning}
                                     disabled={scanningActive || isSubmitting}
-                                    className="w-full px-6 py-4 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-500 disabled:to-gray-600 rounded-xl hover:scale-105 active:scale-95 disabled:scale-100 disabled:cursor-not-allowed"
+                                    className="w-full px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 rounded-xl disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed"
                                 >
-                                    <div className="flex items-center justify-center space-x-3">
-                                        {scanningActive ? (
+                                    <div className="flex items-center justify-center space-x-2">
+                                        {(scanningActive || isSubmitting) ? (
                                             <>
-                                                <div className="w-6 h-6 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
-                                                <span className="text-lg">SCANNING...</span>
-                                            </>
-                                        ) : isSubmitting ? (
-                                            <>
-                                                <div className="w-6 h-6 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
-                                                <span className="text-lg">SUBMITTING...</span>
+                                                <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                                                <span>{isSubmitting ? "SUBMITTING..." : "SCANNING..."}</span>
                                             </>
                                         ) : (
                                             <>
-                                                <Scan className="w-6 h-6" />
-                                                <span className="text-lg">SCAN QR CODE</span>
+                                                <Scan className="w-5 h-5" />
+                                                <span>SCAN QR CODE</span>
                                             </>
                                         )}
                                     </div>
                                 </button>
-
                                 <button 
                                     onClick={stopCamera}
-                                    className="w-full px-6 py-4 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 rounded-xl hover:scale-105 active:scale-95"
+                                    className="w-full px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 hover:from-red-600 hover:via-pink-600 hover:to-rose-600 rounded-xl"
                                 >
-                                    <div className="flex items-center justify-center space-x-3">
-                                        <Square className="w-6 h-6" />
-                                        <span className="text-lg">STOP CAMERA</span>
+                                    <div className="flex items-center justify-center space-x-2">
+                                        <Square className="w-5 h-5" />
+                                        <span>STOP CAMERA</span>
                                     </div>
                                 </button>
-                            </div>
+                            </>
                         )}
                     </div>
 
-                    {/* Scanned Teams Counter */}
+                    {/* Counter */}
                     {scannedTeams.length > 0 && (
-                        <div className="p-4 mt-8 border border-gray-600 bg-gray-800/50 rounded-xl backdrop-blur-sm">
+                        <div className="p-4 text-sm text-white border border-gray-600/30 bg-gray-800/20 rounded-xl">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-3">
-                                    <Shield className="w-5 h-5 text-green-400" />
-                                    <span className="font-semibold text-white">Teams Registered</span>
+                                <div className="flex items-center space-x-2">
+                                    <Shield className="w-5 h-5 text-emerald-400" />
+                                    <span>Teams Registered</span>
                                 </div>
-                                <div className="px-3 py-1 text-sm font-bold text-white bg-green-500 rounded-full">
+                                <div className="px-3 py-1 font-bold rounded-md bg-gradient-to-r from-emerald-500 to-teal-500">
                                     {scannedTeams.length}
                                 </div>
                             </div>
@@ -376,15 +359,16 @@ const QRScanner = () => {
                     )}
 
                     {/* Footer */}
-                    <div className="mt-8 text-center">
-                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
-                            <Zap className="w-4 h-4" />
+                    <div className="pt-4 text-xs text-center text-gray-400">
+                        <div className="flex items-center justify-center space-x-2">
+                            <Zap className="w-4 h-4 text-cyan-400" />
                             <span>Powered by Lethal Bots 2025</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 };
 
